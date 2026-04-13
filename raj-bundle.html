@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj Mody Bundle — Internal Negotiation Brief</title>
+<style>
+  @media print { body { margin: 0; } .section { page-break-inside: avoid; box-shadow: none; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; font-size: 12px; line-height: 1.6; }
+  .section {
+    max-width: 900px; margin: 12px auto; background: white;
+    padding: 32px 36px 24px; border-radius: 6px;
+  }
+  h1 { font-size: 20px; font-weight: 900; color: #1a2b3c; margin-bottom: 4px; }
+  h2 { font-size: 15px; font-weight: 900; color: #1a2b3c; margin-bottom: 12px; border-bottom: 2px solid #1a2b3c; padding-bottom: 6px; }
+  h3 { font-size: 12px; font-weight: 700; color: #1a2b3c; margin: 14px 0 8px; text-transform: uppercase; letter-spacing: .8px; }
+  .subtitle { font-size: 11px; color: #999; margin-bottom: 16px; }
+  .internal-tag { display: inline-block; background: #dc2626; color: white; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+
+  /* T-BAR */
+  .tbar { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+  .tbar th { background: #1a2b3c; color: white; padding: 8px 12px; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; width: 50%; }
+  .tbar td { padding: 6px 12px; border-bottom: 1px solid #eee; font-size: 11px; vertical-align: top; }
+  .tbar td:first-child { border-right: 2px solid #1a2b3c; }
+  .tbar tr.section-row td { background: #f0f2f5; font-weight: 700; color: #1a2b3c; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
+  .tbar .num { font-weight: 700; color: #1a2b3c; }
+  .tbar .green { color: #16a34a; font-weight: 700; }
+  .tbar .gold { color: #b07700; font-weight: 700; }
+  .tbar .red { color: #dc2626; font-weight: 700; }
+
+  /* DARK BOX */
+  .dark-box { background: #1a2b3c; color: #ccc; border-radius: 6px; padding: 16px 20px; margin-bottom: 16px; }
+  .dark-box h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #e8a020; margin-bottom: 10px; }
+  .dark-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 12px; }
+  .dark-row:last-child { border-bottom: none; }
+  .dark-row .dlbl { color: #aaa; }
+  .dark-row .dval { font-weight: 700; color: white; }
+  .dark-row .dval.green { color: #4caf50; }
+  .dark-row .dval.gold { color: #e8a020; }
+  .dark-row .dval.red { color: #ef5350; }
+
+  /* GRID LAYOUTS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+
+  /* STAT BOX */
+  .stat-box { border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px; text-align: center; }
+  .stat-box .stat-num { font-size: 22px; font-weight: 900; color: #1a2b3c; }
+  .stat-box .stat-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 2px; }
+  .stat-box.accent { border-color: #5b21b6; background: #faf8ff; }
+  .stat-box.accent .stat-num { color: #5b21b6; }
+  .stat-box.green-accent { border-color: #16a34a; background: #f0fdf4; }
+  .stat-box.green-accent .stat-num { color: #16a34a; }
+
+  /* INFO CARD */
+  .info-card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px 16px; margin-bottom: 16px; }
+  .info-card h4 { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 8px; }
+  .info-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 11px; border-bottom: 1px solid #f5f5f5; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .lbl { color: #555; }
+  .info-row .val { font-weight: 700; color: #1a2b3c; }
+  .info-row .val.green { color: #16a34a; }
+  .info-row .val.gold { color: #b07700; }
+  .info-row .val.red { color: #dc2626; }
+
+  /* CALLOUT */
+  .callout { border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 12px; line-height: 1.7; }
+  .callout-blue { background: #eff6ff; border: 1px solid #3b82f6; color: #1e40af; }
+  .callout-green { background: #f0fdf4; border: 1px solid #16a34a; color: #166534; }
+  .callout-amber { background: #fffbeb; border: 1px solid #d97706; color: #92400e; }
+  .callout-red { background: #fef2f2; border: 1px solid #dc2626; color: #991b1b; }
+  .callout strong { color: inherit; }
+
+  /* NEGOTIATION TABLE */
+  .neg-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .neg-table th { background: #1a2b3c; color: white; padding: 8px 10px; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; text-align: left; }
+  .neg-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 11px; vertical-align: top; }
+  .neg-table tr:last-child td { border-bottom: none; }
+  .neg-table .priority { font-weight: 700; }
+  .neg-table .p-high { color: #dc2626; }
+  .neg-table .p-med { color: #d97706; }
+  .neg-table .p-low { color: #16a34a; }
+
+  .page-foot { font-size: 9px; color: #bbb; text-align: center; padding-top: 10px; border-top: 1px solid #eee; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 1 — DEAL OVERVIEW + RAJ'S REALITY
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="internal-tag">Internal — Do Not Show Raj</div>
+  <h1>Raj Mody Bundle — Negotiation Brief</h1>
+  <div class="subtitle">Skycrest ($400K) + Forest Hills ($380K) · $780K Combined · April 2026</div>
+
+  <h2>Raj's Reality — Why He Needs You</h2>
+
+  <div class="info-card">
+    <h4>Raj Mody — Seller Profile</h4>
+    <div class="info-row"><span class="lbl">Type</span><span class="val">Finance guy — funds projects, takes interest or equity</span></div>
+    <div class="info-row"><span class="lbl">Typical deal size</span><span class="val red">Under $500K — these are outside his comfort zone</span></div>
+    <div class="info-row"><span class="lbl">Problem</span><span class="val">Both houses are the LARGEST in their neighborhoods</span></div>
+    <div class="info-row"><span class="lbl">Market reality</span><span class="val red">Oversized houses don't comp well. Hard to sell conventionally.</span></div>
+    <div class="info-row"><span class="lbl">His position</span><span class="val gold">He wants BOTH deals done. He needs a buyer who can make big houses work.</span></div>
+    <div class="info-row"><span class="lbl">What he understands</span><span class="val green">Yield, collateral, IO, graduated rates — he's a finance person</span></div>
+  </div>
+
+  <div class="callout callout-blue">
+    <strong>Your leverage:</strong> Raj can't easily sell these houses on the open market. A 3,025 sqft house in a neighborhood of 1,500 sqft houses doesn't comp. A 5,775 sqft 1950 build with an indoor pool is a niche product. You're not just a buyer — you're the buyer who has a USE CASE that makes oversized houses profitable. Co-living is the only model that justifies these prices. Without you, Raj is sitting on two illiquid assets generating zero income.
+  </div>
+
+  <h2>Combined Portfolio Snapshot</h2>
+
+  <div class="three-col">
+    <div class="stat-box accent">
+      <div class="stat-num">$780K</div>
+      <div class="stat-lbl">Combined Note Value</div>
+    </div>
+    <div class="stat-box accent">
+      <div class="stat-num">$113K</div>
+      <div class="stat-lbl">Total Cash In ($27K + $86K)</div>
+    </div>
+    <div class="stat-box green-accent">
+      <div class="stat-num">$3,250/mo</div>
+      <div class="stat-lbl">Raj's Combined Yr 1-5 Income</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="dark-box">
+      <h4>Skycrest — 10469 Skycrest Dr N</h4>
+      <div class="dark-row"><span class="dlbl">Price / Note</span><span class="dval">$400,000 IO</span></div>
+      <div class="dark-row"><span class="dlbl">Rate (Yr 1-5)</span><span class="dval">5.0% → $1,667/mo</span></div>
+      <div class="dark-row"><span class="dlbl">All-In Cash</span><span class="dval">$27,000</span></div>
+      <div class="dark-row"><span class="dlbl">Conservative CF (80% occ)</span><span class="dval green">$1,888/mo</span></div>
+      <div class="dark-row"><span class="dlbl">Market CF (92% occ)</span><span class="dval green">$2,715/mo</span></div>
+      <div class="dark-row"><span class="dlbl">DSCR (conservative)</span><span class="dval">2.13×</span></div>
+      <div class="dark-row"><span class="dlbl">Cap rate spread Yr 1-5</span><span class="dval green">+810 bps</span></div>
+    </div>
+    <div class="dark-box">
+      <h4>Forest Hills — 1645 Forest Hills Rd</h4>
+      <div class="dark-row"><span class="dlbl">Price / Note</span><span class="dval">$380,000 IO</span></div>
+      <div class="dark-row"><span class="dlbl">Rate (Yr 1-5)</span><span class="dval">5.0% → $1,583/mo</span></div>
+      <div class="dark-row"><span class="dlbl">All-In Cash</span><span class="dval">$86,000</span></div>
+      <div class="dark-row"><span class="dlbl">Conservative CF (80% occ)</span><span class="dval gold">$895/mo</span></div>
+      <div class="dark-row"><span class="dlbl">Market CF (92% occ)</span><span class="dval green">$1,499/mo</span></div>
+      <div class="dark-row"><span class="dlbl">DSCR (conservative)</span><span class="dval">1.71×</span></div>
+      <div class="dark-row"><span class="dlbl">Cap rate spread Yr 1-5</span><span class="dval gold">+182 bps</span></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Raj Mody Bundle · Internal Negotiation Brief · Page 1 · April 2026</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 2 — COMBINED T-BAR
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>Combined T-BAR — The $780K Bundle</h2>
+
+  <table class="tbar">
+    <thead>
+      <tr><th>What Jerel Gets</th><th>What Raj Gets</th></tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="2">Cash Flow &amp; Income</td></tr>
+      <tr>
+        <td>Combined <span class="green">$2,783/mo</span> conservative CF (80% occ)<br>
+            Combined <span class="green">$4,214/mo</span> market CF (92% occ)<br>
+            Annual: <span class="num">$33,396 – $50,568</span></td>
+        <td>Combined <span class="green">$3,250/mo</span> passive income (Yr 1-5)<br>
+            Rising to <span class="num">$4,725/mo</span> by Year 8-10<br>
+            Annual: <span class="num">$39,000 → $56,700</span></td>
+      </tr>
+      <tr class="section-row"><td colspan="2">Capital &amp; Equity Position</td></tr>
+      <tr>
+        <td><span class="num">$0 down</span> on both properties<br>
+            $113K total cash invested (rehab + closing)<br>
+            Controls <span class="num">$780K</span> in real estate<br>
+            100% of appreciation upside<br>
+            <span class="green">6.9:1</span> leverage ratio ($780K / $113K)</td>
+        <td>Full <span class="num">$780K</span> principal preserved (IO)<br>
+            Two first-position liens on two properties<br>
+            Cross-collateral on Hastings (3rd property)<br>
+            <span class="num">$460,800</span> total interest over 10 years<br>
+            <span class="num">$1,240,800</span> total received (interest + balloons)</td>
+      </tr>
+      <tr class="section-row"><td colspan="2">Tax &amp; Depreciation</td></tr>
+      <tr>
+        <td><span class="green">~$228K</span> Year 1 depreciation (100% bonus + straight-line)<br>
+            At 32% bracket: <span class="green">~$73K tax refund</span> Year 1<br>
+            Effective cash in after tax benefit: <span class="green">~$40K</span><br>
+            20 years of remaining straight-line depreciation</td>
+        <td>Interest income taxed as ordinary income<br>
+            No depreciation benefit (he's the lender, not owner)<br>
+            Clean 1099-INT reporting<br>
+            No management, no depreciation recapture risk</td>
+      </tr>
+      <tr class="section-row"><td colspan="2">Balloon &amp; Exit</td></tr>
+      <tr>
+        <td>10-year runway to refi, sell, or extend<br>
+            <span class="red">$780K balloon exposure</span> at Year 10<br>
+            Must refinance or negotiate extension<br>
+            IO = zero principal reduction</td>
+        <td>Full $400K + $380K returned at Year 10<br>
+            Defined exit with no market timing risk<br>
+            Gets <span class="num">$1.24M total</span> on $780K position<br>
+            59% total return over 10 years</td>
+      </tr>
+      <tr class="section-row"><td colspan="2">Risk &amp; Operations</td></tr>
+      <tr>
+        <td>All operating risk (9+9 = 18 room rentals)<br>
+            Utility risk ($1,400/mo combined)<br>
+            Maintenance risk (1950 build on Forest Hills)<br>
+            Management intensity — co-living model<br>
+            Vacancy exposure (but break-even is low)</td>
+        <td><span class="green">Zero management</span> — passive paper income<br>
+            Zero operating risk — that's Jerel's problem<br>
+            Zero utility or maintenance exposure<br>
+            Zero vacancy risk — fixed payment regardless<br>
+            Risk = only if Jerel defaults (liens protect him)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-green">
+    <strong>The core trade:</strong> Raj converts two illiquid, oversized houses into $3,250/mo passive income secured by three properties — no management, no tenants, no calls. Jerel gets operating control of $780K in assets for $113K cash, plus ~$73K back in Year 1 tax benefits, making true out-of-pocket roughly $40K for a portfolio generating $33-50K/yr in cash flow.
+  </div>
+
+  <div class="page-foot">Raj Mody Bundle · Internal Negotiation Brief · Page 2 · T-BAR Analysis</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 3 — BONUS DEPRECIATION ANALYSIS
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>Bonus Depreciation — Year 1 Tax Benefit (RCN Self-Study Cost Seg)</h2>
+
+  <div class="callout callout-amber">
+    <strong>OBBB (2025):</strong> 100% bonus depreciation restored permanently. All 5-year, 7-year, and 15-year property identified in cost segregation = immediate expensing in Year 1. This is the single biggest return accelerator in these deals.
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <h4>Skycrest — Cost Seg Breakdown</h4>
+      <div class="info-row"><span class="lbl">Purchase price</span><span class="val">$400,000</span></div>
+      <div class="info-row"><span class="lbl">Land (est. 20%)</span><span class="val">−$80,000</span></div>
+      <div class="info-row"><span class="lbl">Depreciable basis</span><span class="val">$320,000</span></div>
+      <div class="info-row"><span class="lbl">+ Rehab (all depreciable)</span><span class="val">+$15,000</span></div>
+      <div class="info-row"><span class="lbl">Total depreciable</span><span class="val num">$335,000</span></div>
+      <div style="border-top: 1px solid #e0e0e0; margin: 8px 0;"></div>
+      <div class="info-row"><span class="lbl">5/7-yr property (~20%)</span><span class="val green">$67,000</span></div>
+      <div class="info-row"><span class="lbl">15-yr property (~10%)</span><span class="val green">$33,500</span></div>
+      <div class="info-row"><span class="lbl">Bonus-eligible total</span><span class="val green">$100,500</span></div>
+      <div class="info-row"><span class="lbl">27.5-yr building (remaining)</span><span class="val">$234,500</span></div>
+      <div style="border-top: 1px solid #e0e0e0; margin: 8px 0;"></div>
+      <div class="info-row"><span class="lbl">Year 1 bonus (100%)</span><span class="val green">$100,500</span></div>
+      <div class="info-row"><span class="lbl">Year 1 straight-line (27.5yr)</span><span class="val">$8,527</span></div>
+      <div class="info-row"><span class="lbl"><strong>Total Year 1 depreciation</strong></span><span class="val green"><strong>$109,027</strong></span></div>
+    </div>
+    <div class="info-card">
+      <h4>Forest Hills — Cost Seg Breakdown</h4>
+      <div class="info-row"><span class="lbl">Purchase price</span><span class="val">$380,000</span></div>
+      <div class="info-row"><span class="lbl">Land (est. 20%)</span><span class="val">−$76,000</span></div>
+      <div class="info-row"><span class="lbl">Depreciable basis</span><span class="val">$304,000</span></div>
+      <div class="info-row"><span class="lbl">+ Rehab (depreciable portion)</span><span class="val">+$60,000</span></div>
+      <div class="info-row"><span class="lbl">Total depreciable</span><span class="val num">$364,000</span></div>
+      <div style="border-top: 1px solid #e0e0e0; margin: 8px 0;"></div>
+      <div class="info-row"><span class="lbl">5/7-yr property (~20%)</span><span class="val green">$72,800</span></div>
+      <div class="info-row"><span class="lbl">15-yr property (~10%)</span><span class="val green">$36,400</span></div>
+      <div class="info-row"><span class="lbl">Bonus-eligible total</span><span class="val green">$109,200</span></div>
+      <div class="info-row"><span class="lbl">27.5-yr building (remaining)</span><span class="val">$254,800</span></div>
+      <div style="border-top: 1px solid #e0e0e0; margin: 8px 0;"></div>
+      <div class="info-row"><span class="lbl">Year 1 bonus (100%)</span><span class="val green">$109,200</span></div>
+      <div class="info-row"><span class="lbl">Year 1 straight-line (27.5yr)</span><span class="val">$9,265</span></div>
+      <div class="info-row"><span class="lbl"><strong>Total Year 1 depreciation</strong></span><span class="val green"><strong>$118,465</strong></span></div>
+    </div>
+  </div>
+
+  <div class="dark-box">
+    <h4>Combined Year 1 Tax Impact</h4>
+    <div class="dark-row"><span class="dlbl">Combined Year 1 depreciation</span><span class="dval gold">$227,492</span></div>
+    <div class="dark-row"><span class="dlbl">+ Combined Year 1 cash flow (conservative)</span><span class="dval">$33,396</span></div>
+    <div class="dark-row"><span class="dlbl">Net tax loss (depreciation − cash flow)</span><span class="dval gold">−$194,096</span></div>
+    <div class="dark-row" style="border-top: 1px solid rgba(255,255,255,.2); margin-top: 6px; padding-top: 8px;">
+      <span class="dlbl">Tax savings at 24% bracket</span><span class="dval green">$54,598</span>
+    </div>
+    <div class="dark-row"><span class="dlbl">Tax savings at 32% bracket</span><span class="dval green">$72,798</span></div>
+    <div class="dark-row"><span class="dlbl">Tax savings at 37% bracket</span><span class="dval green">$84,173</span></div>
+  </div>
+
+  <h3>True Year 1 Return — Cash + Tax Benefit</h3>
+
+  <div class="three-col">
+    <div class="stat-box green-accent">
+      <div class="stat-num">$113K</div>
+      <div class="stat-lbl">Total Cash Invested</div>
+    </div>
+    <div class="stat-box green-accent">
+      <div class="stat-num">−$73K</div>
+      <div class="stat-lbl">Year 1 Tax Refund (32%)</div>
+    </div>
+    <div class="stat-box accent">
+      <div class="stat-num">$40K</div>
+      <div class="stat-lbl">Effective Net Cash In</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h4>True Year 1 Returns (After Tax Benefit at 32% Bracket)</h4>
+    <div class="info-row"><span class="lbl">Year 1 cash flow (conservative, 80% occ)</span><span class="val green">$33,396</span></div>
+    <div class="info-row"><span class="lbl">Year 1 tax savings</span><span class="val green">$72,798</span></div>
+    <div class="info-row"><span class="lbl">Total Year 1 economic benefit</span><span class="val green">$106,194</span></div>
+    <div class="info-row"><span class="lbl">On $113K invested</span><span class="val green">94% total return in Year 1</span></div>
+    <div class="info-row"><span class="lbl">On $40K effective (after tax refund)</span><span class="val green">Cash flow alone = 83.5% CoC on net basis</span></div>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Hyre's warning on recapture:</strong> Depreciation is timing, not elimination. When you sell, the IRS recaptures accelerated depreciation at 25%. On $228K of depreciation, that's a potential $57K recapture tax at disposition. Plan around this: 1031 exchange, installment sale, or hold-to-death basis step-up. The tax savings NOW fund operations and build the war chest. The recapture comes later — and only if you sell.
+  </div>
+
+  <div class="page-foot">Raj Mody Bundle · Internal Negotiation Brief · Page 3 · Bonus Depreciation Analysis</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 4 — PROPOSED TERMS + NEGOTIATION STRATEGY
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>Proposed Bundle Terms — What to Ask For</h2>
+
+  <div class="callout callout-blue">
+    <strong>Framing for Raj:</strong> "I'm taking both properties at once. That's $780K in paper you're holding from one reliable buyer — guaranteed income from day one, no listing agent, no staging, no open houses, no uncertainty. These are the biggest houses in their neighborhoods. I'm the buyer who has a model to make them work. Let's structure terms that make the math work so I can be a reliable payer for 10 years."
+  </div>
+
+  <table class="neg-table">
+    <thead>
+      <tr>
+        <th style="width:8%;">Priority</th>
+        <th style="width:20%;">Term</th>
+        <th style="width:36%;">What You Want</th>
+        <th style="width:36%;">Why Raj Should Accept</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="priority p-high">HIGH</td>
+        <td>Forest Hills Rate</td>
+        <td><strong>Flat 5.0% IO for full 10 years</strong> instead of graduated 5.0→6.5%. Saves $396/mo in Yr 8-10 ($14,256 total). Fortunato identified the cap rate spread compressing to 32 bps at 6.5% — that's dangerously thin.</td>
+        <td>Same blended cost to him (~$211K total interest vs $213K graduated). Predictable income — he doesn't have to track rate changes. Finance guys value simplicity in their own receivables.</td>
+      </tr>
+      <tr>
+        <td class="priority p-high">HIGH</td>
+        <td>Balloon Extension</td>
+        <td><strong>2-year extension option on both balloons.</strong> $4K fee per note ($8K total) buys 2 more years at the terminal rate. Exercisable at Jerel's option in Year 9.</td>
+        <td>He keeps earning income for 2 more years. $8K in extension fees is free money. His principal is still 100% preserved. The alternative is foreclosing on a co-living house he can't sell — he doesn't want the properties back.</td>
+      </tr>
+      <tr>
+        <td class="priority p-high">HIGH</td>
+        <td>Hastings Release</td>
+        <td><strong>Cross-collateral on Hastings auto-releases after Year 5</strong> with no missed payments. This frees Hastings for other deals.</td>
+        <td>After 5 years and $195K+ in payments, he's proven you're reliable. He still has first-position liens on both Skycrest and Forest Hills. Hastings was insurance for $0 down — after 5 years of performance, the insurance has served its purpose.</td>
+      </tr>
+      <tr>
+        <td class="priority p-med">MED</td>
+        <td>Mutual Cross-Collateral</td>
+        <td><strong>Both properties cross-secure both notes</strong> (Raj gets MORE security) — BUT with a <strong>mutual release clause</strong>: pay off either note in full and the other property releases from that note.</td>
+        <td>He gets better security (two properties backing each note). He'll like this. The release clause protects you from one property being held hostage over the other.</td>
+      </tr>
+      <tr>
+        <td class="priority p-med">MED</td>
+        <td>Substitution of Collateral</td>
+        <td><strong>Right to substitute equivalent or greater collateral</strong> on either note with Raj's approval (not unreasonably withheld). Allows swapping in future equity to free a property for refi.</td>
+        <td>He stays equally or better secured. This is a standard institutional note clause — his finance background means he'll recognize it.</td>
+      </tr>
+      <tr>
+        <td class="priority p-low">LOW</td>
+        <td>Skycrest Rate</td>
+        <td>Keep as-is (5%→8% graduated). The loan constant spread on Skycrest is wide enough (+510 bps even at 8%) that the graduation doesn't hurt. <strong>Concede this to win the Forest Hills flat rate.</strong></td>
+        <td>He sees himself "winning" on Skycrest's rate. Graduated rate on one deal, flat on the other. Feels like a balanced negotiation.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Negotiation Sequence</h3>
+
+  <div class="info-card">
+    <h4>How to Present This</h4>
+    <div style="font-size: 11px; color: #555; line-height: 1.8;">
+      <strong>1. Lead with the bundle value.</strong> "$3,250/mo in passive income from one buyer, secured by three properties. $460K in interest over 10 years. $1.24M total received. Zero management." Let him sit with those numbers.<br><br>
+      <strong>2. Acknowledge his problem.</strong> "These are great houses, but they're the biggest in their neighborhoods. That makes them hard to move on the open market. I have a use case that makes them work — and I'm willing to take both at once."<br><br>
+      <strong>3. Present the terms as a package.</strong> Don't negotiate one property at a time — that lets him optimize each individually. Present the bundle: "Here's what I need to make the math work on both." The flat rate on Forest Hills is offset by the graduated rate on Skycrest. Bundle = compromise.<br><br>
+      <strong>4. Frame the extension option as insurance FOR HIM.</strong> "If the refi market is ugly in Year 10, you don't want me forced into a fire sale. The extension option means you keep earning income and I don't have to rush. It protects your principal."<br><br>
+      <strong>5. Close with the simplicity pitch.</strong> "One closing, one buyer, one relationship. I wire you $3,250 on the first of every month. You never get a tenant call, a repair bill, or an insurance claim. That's the deal."
+    </div>
+  </div>
+
+  <div class="page-foot">Raj Mody Bundle · Internal Negotiation Brief · Page 4 · Proposed Terms</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE 5 — WHAT-IF MATRIX + WALK-AWAY LINES
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>What-If Matrix — Know Your Walk-Away Lines</h2>
+
+  <h3>Forest Hills — Rate Sensitivity (the deal that matters)</h3>
+
+  <table class="neg-table">
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Monthly CF</th>
+        <th>Annual CF</th>
+        <th>CoC</th>
+        <th>DSCR</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Flat 5.0% IO (ask)</td>
+        <td>$895/mo</td>
+        <td>$10,740</td>
+        <td>12.5%</td>
+        <td>1.71×</td>
+        <td class="priority p-low">ACCEPT — floor deal</td>
+      </tr>
+      <tr>
+        <td>Flat 4.0% IO (reach)</td>
+        <td>$1,212/mo</td>
+        <td>$14,544</td>
+        <td>16.9%</td>
+        <td>2.16×</td>
+        <td class="priority p-low">STRONG — push for this</td>
+      </tr>
+      <tr>
+        <td>Graduated 5.0→6.5% (current)</td>
+        <td>$895→$578</td>
+        <td>$10,740→$6,936</td>
+        <td>12.5%→8.1%</td>
+        <td>1.71×→1.46×</td>
+        <td class="priority p-med">TIGHT — acceptable only with extension option</td>
+      </tr>
+      <tr>
+        <td>Flat 6.0% IO</td>
+        <td>$262/mo</td>
+        <td>$3,144</td>
+        <td>3.7%</td>
+        <td>1.13×</td>
+        <td class="priority p-high">WALK AWAY — deal doesn't work</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Combined Portfolio — Year 1 Economics at Different Brackets</h3>
+
+  <table class="neg-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Cash Only</th>
+        <th>+ Tax (24%)</th>
+        <th>+ Tax (32%)</th>
+        <th>+ Tax (37%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Year 1 cash flow (conservative)</td>
+        <td>$33,396</td>
+        <td>$33,396</td>
+        <td>$33,396</td>
+        <td>$33,396</td>
+      </tr>
+      <tr>
+        <td>Year 1 tax savings</td>
+        <td>$0</td>
+        <td>$54,598</td>
+        <td>$72,798</td>
+        <td>$84,173</td>
+      </tr>
+      <tr>
+        <td><strong>Total Year 1 economic benefit</strong></td>
+        <td><strong>$33,396</strong></td>
+        <td><strong>$87,994</strong></td>
+        <td><strong>$106,194</strong></td>
+        <td><strong>$117,569</strong></td>
+      </tr>
+      <tr>
+        <td>Return on $113K invested</td>
+        <td>29.6%</td>
+        <td>77.9%</td>
+        <td>94.0%</td>
+        <td>104.0%</td>
+      </tr>
+      <tr>
+        <td>Effective net cash in (after tax refund)</td>
+        <td>$113,000</td>
+        <td>$58,402</td>
+        <td>$40,202</td>
+        <td>$28,827</td>
+      </tr>
+      <tr>
+        <td><strong>CF-only CoC on net cash</strong></td>
+        <td><strong>29.6%</strong></td>
+        <td><strong>57.2%</strong></td>
+        <td><strong>83.1%</strong></td>
+        <td><strong>115.9%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-green">
+    <strong>The punchline:</strong> At a 32% tax bracket, your Year 1 tax refund recovers 64% of your total cash invested. By the end of Year 1, your effective basis in a $780K portfolio is $40K. The combined cash flow then earns 83% on that net basis — and that's at the CONSERVATIVE 80% occupancy scenario. At market rate, it's north of 125%. The bonus depreciation doesn't just improve the deal — it fundamentally changes the risk profile. Your real downside exposure is $40K, not $113K.
+  </div>
+
+  <h3>Fortunato's Three Must-Haves Before Closing</h3>
+
+  <div class="info-card" style="border-left: 4px solid #1a2b3c;">
+    <div style="font-size: 12px; line-height: 1.8; color: #555;">
+      <strong style="color:#1a2b3c;">1. Extension option on both balloons.</strong> Non-negotiable. Without it, you have a $780K time bomb in Year 10 with no principal reduction. The extension is cheap insurance ($8K) that gives you a 12-year runway instead of 10.<br><br>
+      <strong style="color:#1a2b3c;">2. Flat rate on Forest Hills.</strong> The graduated rate compresses the loan constant spread to 32 bps by Year 8. That's one bad month from negative leverage. Flat 5% keeps the spread at 182 bps for the full term. If Raj insists on graduation, counter with a smaller step (5.0%→5.5% max, not 5.0%→6.5%).<br><br>
+      <strong style="color:#1a2b3c;">3. Hastings release at Year 5.</strong> You need Hastings free for future deals. Five years of performance + $195K in payments = Raj has been paid enough to release the backup collateral. Both notes still have first-position liens on their own properties.
+    </div>
+  </div>
+
+  <div class="page-foot">Raj Mody Bundle · Internal Negotiation Brief · Page 5 · Walk-Away Lines + Tax Analysis</div>
+</div>
+
+</body>
+</html>
